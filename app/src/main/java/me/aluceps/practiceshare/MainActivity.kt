@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun share() {
         val targets: MutableList<Intent> = mutableListOf()
-        val resolveInfoList = packageManager.queryIntentActivities(Intent().actionSend(), resolveInfoFlags)
-        resolveInfoList.forEach {
+        packageManager.queryIntentActivities(Intent().actionSend(), resolveInfoFlags).forEach {
             targets.add(Intent().actionSend().apply {
                 `package` = it.activityInfo.packageName
                 setClassName(it.activityInfo.packageName, it.activityInfo.name)
