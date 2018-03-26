@@ -51,22 +51,17 @@ class MainActivity : AppCompatActivity() {
      * 共有時にハッシュタグを追加する
      */
     private fun createMessage(packageName: String, message: String): String =
-            if (hashtagAble(packageName)) {
+            if (isHashtagUseable(packageName)) {
                 "%s\n%s".format(message, "#some_hash_tag")
             } else {
                 message
             }
 
     /**
-     * enumで定義したパッケージ名にあるか確認
+     * enumで定義したパッケージ名に存在するか確認
      */
-    private fun hashtagAble(packageName: String): Boolean {
-        var count = 0
-        App.values().forEach {
-            if (it.packageName.contains(packageName)) count++
-        }
-        return count > 0
-    }
+    private fun isHashtagUseable(packageName: String): Boolean =
+            App.values().filter { packageName.contains(it.packageName) }.count() > 0
 
     private fun Intent.actionSend(): Intent = Intent().apply {
         action = Intent.ACTION_SEND
