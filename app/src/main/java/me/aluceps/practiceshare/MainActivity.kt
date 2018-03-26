@@ -51,10 +51,9 @@ class MainActivity : AppCompatActivity() {
      * 共有時にハッシュタグを追加する
      */
     private fun createMessage(packageName: String, message: String): String =
-            if (isHashtagUseable(packageName)) {
-                "%s\n%s".format(message, "#some_hash_tag")
-            } else {
-                message
+            when (isHashtagUseable(packageName)) {
+                true -> "%s\n%s".format(message, "#some_hash_tag")
+                else -> message
             }
 
     /**
